@@ -1,343 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quotation | Dream Merchant Business Solution And Marketing</title>
-  <style>
-    :root{
-      --c1:#ff4e50; --c2:#f9d423; --ink:#1f2937; --muted:#6b7280; --card:#ffffffee; --shadow:0 10px 24px rgba(0,0,0,.12)
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;color:var(--ink);
-      background: radial-gradient(900px 600px at 80% -10%, rgba(249,212,35,.35), transparent 60%),
-                  radial-gradient(900px 600px at -10% 120%, rgba(255,78,80,.35), transparent 60%),
-                  linear-gradient(180deg,#fff8f0,#fff)}
-    header{position:sticky;top:0;z-index:10;background:linear-gradient(135deg, #fff8, #fff8);backdrop-filter:blur(8px);
-      border-bottom:1px solid #eee}
-    .wrap{max-width:1100px;margin:auto;padding:18px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c2),var(--c1))}
-    h1{font-size:clamp(18px,3vw,26px);margin:0}
-    .sub{color:var(--muted);font-size:14px}
-
-    .grid{display:grid;gap:16px;margin:16px auto;grid-template-columns:1fr}
-    @media(min-width:960px){.grid{grid-template-columns: 1.1fr 1fr}}
-
-    .card{background:var(--card);border:1px solid #eee;border-radius:16px;box-shadow:var(--shadow);padding:16px}
-    .card h2{margin:4px 0 10px}
-
-    label{font-weight:600;font-size:14px}
-    input,select{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;margin-top:6px}
-    .row{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:680px){.row{grid-template-columns:1fr 1fr}}
-
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#f3f4f6;color:#111;font-weight:600;font-size:12px}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px dashed #e5e7eb;padding:8px 12px;border-radius:999px;background:#fff}
-
-    .pkg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .pkg .p{border:1px solid #eee;border-radius:14px;padding:12px;text-align:center}
-    .pkg .p.active{outline:2px solid var(--c1);box-shadow:0 10px 24px rgba(255,78,80,.15)}
-    .price{font-size:22px;font-weight:800}
-    .muted{color:var(--muted)}
-
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-    .btn{appearance:none;border:none;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font-weight:800;padding:10px 14px;border-radius:12px;cursor:pointer;box-shadow:0 10px 18px rgba(255,78,80,.25)}
-    .btn.secondary{background:#111;color:#fff}
-    .btn.ghost{background:#fff;color:#111;border:1px solid #eee}
-
-    .preview h3{margin:0 0 6px}
-    .kv{display:grid;grid-template-columns:160px 1fr;gap:8px}
-    .divider{height:1px;background:#eee;margin:12px 0}
-
-    footer{padding:18px;text-align:center;color:var(--muted)}
-    .center{text-align:center}
-  </style>
+  <meta charset="UTF-8">
+  <title>JK Solar Quotation System</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap brand">
-      <div class="logo">JK</div>
-      <div>
-        <h1>Quotation – Dream Merchant Business Solution And Marketing</h1>
-        <div class="sub">Prepared by: Ojaswa Singh • 9669500666 • Deal via WhatsApp</div>
-      </div>
-    </div>
-  </header>
+  <h1>JK Solar Quotation System</h1>
 
-  <main class="wrap grid">
-    <!-- FORM SIDE -->
-    <section class="card" aria-labelledby="formTitle">
-      <h2 id="formTitle">Client Details & Package Selection</h2>
-      <div class="row">
-        <div>
-          <label>Client Name</label>
-          <input id="clientName" placeholder="e.g., Chetan Sir" value="Chetan Sir" />
-        </div>
-        <div>
-          <label>Company</label>
-          <input id="company" placeholder="JK Solar Solution and Service" value="JK Solar Solution and Service" />
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>Phone / WhatsApp</label>
-          <input id="phone" placeholder="+91 9179689725" value="+91 9179689725" />
-        </div>
-        <div>
-          <label>Email (optional)</label>
-          <input id="email" placeholder="name@example.com" />
-        </div>
-      </div>
+  <!-- ==== Form ==== -->
+  <form id="quotationForm">
+    <label>Client Name: <input type="text" id="clientName" required></label><br>
+    <label>Company Name: <input type="text" id="company"></label><br>
+    <label>Phone: <input type="text" id="phone"></label><br>
+    <label>Email: <input type="email" id="email"></label><br>
+    <label>Package: <input type="text" id="packageLabel"></label><br>
+    <label>Original Price: <input type="number" id="price"></label><br>
+    <label>Discount: <input type="number" id="discount"></label><br>
+    <label>Final Price: <input type="number" id="final"></label><br>
+    <label>Advance Paid: <input type="number" id="advance"></label><br>
+    <label>Coupon Code: <input type="text" id="coupon"></label><br>
+  </form>
 
-      <div class="divider"></div>
-      <label>Choose Package</label>
-      <div class="pkg" id="pkgCards">
-        <div class="p active" data-id="starter" data-price="4999" data-duration="2 Weeks" data-rev="1">
-          <div class="badge">Starter</div>
-          <div class="price">₹4,999</div>
-          <div class="muted">Duration: 2 Weeks • 1 Revision</div>
-        </div>
-        <div class="p" data-id="growth" data-price="8999" data-duration="1 Month" data-rev="2">
-          <div class="badge">Growth</div>
-          <div class="price">₹8,999</div>
-          <div class="muted">Duration: 1 Month • 2 Revisions</div>
-        </div>
-        <div class="p" data-id="premium" data-price="14999" data-duration="6 Weeks" data-rev="3">
-          <div class="badge">Premium</div>
-          <div class="price">₹14,999</div>
-          <div class="muted">Duration: 6 Weeks • 3 Revisions</div>
-        </div>
-      </div>
+  <!-- ==== Action Buttons ==== -->
+  <button id="downloadBtn">Download PDF</button>
+  <button id="saveBtn">Save to Google Drive</button>
 
-      <div class="row" style="margin-top:12px">
-        <div>
-          <label>Coupon Code (optional)</label>
-          <input id="coupon" placeholder="Enter coupon e.g., JK1000 or NEW500" />
-        </div>
-        <div>
-          <label>Signing Amount Received (₹)</label>
-          <input id="advance" type="number" min="0" step="1" value="0" />
-        </div>
-      </div>
+  <p id="status"></p>
 
-      <div class="actions">
-        <button class="btn" id="applyBtn">Apply Coupon / Update</button>
-        <button class="btn ghost" id="whBtn">Message on WhatsApp</button>
-      </div>
-      <p class="muted" style="margin-top:8px">Tax: <strong>Without TAX</strong> • Ad Spend: <strong>Separate</strong> • Quotation validity: <strong>3 days</strong></p>
-    </section>
-
-    <!-- PREVIEW SIDE -->
-    <section class="card preview" aria-labelledby="prevTitle">
-      <h2 id="prevTitle">Quotation Preview</h2>
-      <div class="kv"><div>Client</div><div id="pvClient">JK Solar Solution and Service (Chetan Sir)</div></div>
-      <div class="kv"><div>Contact</div><div id="pvPhone">+91 9179689725</div></div>
-      <div class="kv"><div>Selected Package</div><div id="pvPkg">Starter</div></div>
-      <div class="kv"><div>Duration & Revisions</div><div id="pvDR">2 Weeks • 1 Revision</div></div>
-      <div class="kv"><div>Service Fee</div><div id="pvPrice">₹4,999</div></div>
-      <div class="kv"><div>Discount</div><div id="pvDiscount">₹0</div></div>
-      <div class="kv"><div>Final Price</div><div id="pvFinal" style="font-weight:800">₹4,999</div></div>
-      <div class="kv"><div>Advance Received</div><div id="pvAdvance">₹0</div></div>
-      <div class="kv"><div><strong>Balance Due</strong></div><div id="pvBalance" style="font-weight:800">₹4,999</div></div>
-      <div class="divider"></div>
-      <div class="pill">Payment Mode: UPI in Advance • Deal via WhatsApp • Ad Spend Separate</div>
-
-      <div class="actions" style="margin-top:14px">
-        <button class="btn" id="pdfBtn">Download PDF</button>
-        <button class="btn secondary" id="saveBtn">Save to Google Sheet</button>
-      </div>
-      <p class="muted" id="saveMsg"></p>
-      <p class="muted" id="pdfLinkWrap" style="display:none">Sharable PDF link: <a id="pdfLink" target="_blank" rel="noopener">open</a></p>
-    </section>
-  </main>
-
-  <footer>
-    © <span id="year"></span> Ojaswa Singh • "We value your trust and assure full dedication."
-  </footer>
-
-  <!-- jsPDF for client-side PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzOydVh_sCKfqXVUUIs6-jC04Rinfw8s9z3LT1XBhVFf_ZnPkcyJIrJlFuEoOb5mN6bEQ/exec"; // ← Replace after you deploy Apps Script
+    // === Replace with your Apps Script Web App URL ===
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzOydVh_sCKfqXVUUIs6-jC04Rinfw8s9z3LT1XBhVFf_ZnPkcyJIrJlFuEoOb5mN6bEQ/exec";
 
-    const pkgCards = document.querySelectorAll('#pkgCards .p');
-    const fields = {
-      clientName: document.getElementById('clientName'),
-      company: document.getElementById('company'),
-      phone: document.getElementById('phone'),
-      email: document.getElementById('email'),
-      coupon: document.getElementById('coupon'),
-      advance: document.getElementById('advance')
-    };
-
-    const pv = {
-      client: document.getElementById('pvClient'),
-      phone: document.getElementById('pvPhone'),
-      pkg: document.getElementById('pvPkg'),
-      dr: document.getElementById('pvDR'),
-      price: document.getElementById('pvPrice'),
-      discount: document.getElementById('pvDiscount'),
-      final: document.getElementById('pvFinal'),
-      advance: document.getElementById('pvAdvance'),
-      balance: document.getElementById('pvBalance'),
-    };
-
-    let selected = { id:'starter', label:'Starter', price:4999, duration:'2 Weeks', rev:1 };
-
-    pkgCards.forEach(card=>{
-      card.addEventListener('click',()=>{
-        pkgCards.forEach(c=>c.classList.remove('active'));
-        card.classList.add('active');
-        selected = {
-          id: card.dataset.id,
-          label: card.querySelector('.badge').textContent,
-          price: +card.dataset.price,
-          duration: card.dataset.duration,
-          rev: +card.dataset.rev
-        };
-        update();
-      });
-    });
-
-    function getDiscount(code, base){
-      if(!code) return 0;
-      code = code.trim().toUpperCase();
-      // Demo coupons: edit as you like
-      const map = { 'NEW500': 500, 'JK1000': 1000, 'START4000': base>4000? base-4000:0 };
-      return map[code] || 0;
-    }
-
-    function money(n){ return '₹' + (Math.max(0, Math.round(n))).toLocaleString('en-IN'); }
-
-    function update(){
-      const client = `${fields.company.value} (${fields.clientName.value||'Client'})`;
-      pv.client.textContent = client;
-      pv.phone.textContent = fields.phone.value || '';
-      pv.pkg.textContent = selected.label;
-      pv.dr.textContent = `${selected.duration} • ${selected.rev} Revision${selected.rev>1?'s':''}`;
-      pv.price.textContent = money(selected.price);
-      const discount = getDiscount(fields.coupon.value, selected.price);
-      pv.discount.textContent = money(discount);
-      const final = Math.max(0, selected.price - discount);
-      pv.final.textContent = money(final);
-      const adv = +fields.advance.value || 0;
-      pv.advance.textContent = money(adv);
-      pv.balance.textContent = money(final - adv);
-    }
-
-    // Initial paint
-    update();
-
-    document.getElementById('applyBtn').addEventListener('click', update);
-
-    // WhatsApp message
-    document.getElementById('whBtn').addEventListener('click', ()=>{
-      const text = encodeURIComponent(
-        `Hello, I am ${fields.clientName.value || 'Client'} from ${fields.company.value}.\n`+
-        `Selected Package: ${selected.label}\n`+
-        `Final Price (after coupon): ${document.getElementById('pvFinal').textContent}\n`+
-        `Advance Paid: ${document.getElementById('pvAdvance').textContent}\n`+
-        `Please confirm the quotation.\n\n— Sent from quotation page`
-      );
-      window.open(`https://wa.me/9669500666?text=${text}`, '_blank');
-    });
-
-    // PDF generation using jsPDF
-    document.getElementById('pdfBtn').addEventListener('click', async ()=>{
+    // === Download PDF locally ===
+    document.getElementById("downloadBtn").addEventListener("click", async () => {
       const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({unit:'pt', format:'a4'});
-      const pad = 40, line = (y)=>{doc.setDrawColor(230);doc.line(pad,y,595-pad,y)};
-      let y = pad;
+      const doc = new jsPDF();
+      const clientName = document.getElementById("clientName").value;
+      const company = document.getElementById("company").value;
+      const price = document.getElementById("price").value;
 
-      doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('Quotation – JK Solar Solution and Service', pad, y);
-      doc.setFont('helvetica','normal'); doc.setFontSize(11);
-      y+=18; doc.text(`Prepared by: Ojaswa Singh (9669500666)`, pad, y);
-      y+=18; line(y); y+=24;
+      doc.text("JK Solar Solution and Service", 20, 20);
+      doc.text("QUOTATION", 20, 30);
+      doc.text(`Client Name: ${clientName}`, 20, 50);
+      doc.text(`Company: ${company}`, 20, 60);
+      doc.text(`Price: ₹${price}`, 20, 70);
 
-      doc.setFont('helvetica','bold'); doc.text('Client', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${fields.company.value} (${fields.clientName.value})`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Contact', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${fields.phone.value}${fields.email.value? ' • '+fields.email.value:''}`, pad+80, y);
-
-      y+=22; line(y); y+=26;
-      doc.setFont('helvetica','bold'); doc.text('Package', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${selected.label} • ${selected.duration} • ${selected.rev} Revision${selected.rev>1?'s':''}`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Service Fee', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${document.getElementById('pvPrice').textContent}`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Discount', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${document.getElementById('pvDiscount').textContent}`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Final Price', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${document.getElementById('pvFinal').textContent}`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Advance', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${document.getElementById('pvAdvance').textContent}`, pad+80, y);
-      y+=18; doc.setFont('helvetica','bold'); doc.text('Balance Due', pad, y); doc.setFont('helvetica','normal');
-      doc.text(`${document.getElementById('pvBalance').textContent}`, pad+80, y);
-
-      y+=24; line(y); y+=26;
-      doc.setFont('helvetica','normal');
-      doc.text('Payment Mode: UPI in Advance • Ad Spend Separate • Validity: 3 days', pad, y);
-      y+=18; doc.text('Deal & approvals via WhatsApp with client representative.', pad, y);
-
-      const fname = `Quotation_${selected.id}_${Date.now()}.pdf`;
-      doc.save(fname);
-
-      // return base64 for backend if needed
-      const pdfDataUri = doc.output('datauristring');
-      window._lastPdfDataUri = pdfDataUri;
+      doc.save(`Quotation_${clientName}.pdf`);
     });
 
-    // Save to Google Sheet (via Apps Script)
-    document.getElementById('saveBtn').addEventListener('click', async ()=>{
-      const msg = document.getElementById('saveMsg');
-      msg.textContent = 'Saving…';
-      try{
-        if(!GAS_URL || GAS_URL.startsWith('YOUR_')){
-          msg.textContent = 'Set your Google Apps Script URL in GAS_URL to enable saving.';
-          return;
+    // === Save to Google Drive + Sheet ===
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const data = {
+        timestamp: new Date().toISOString(),
+        clientName: document.getElementById("clientName").value,
+        company: document.getElementById("company").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        packageLabel: document.getElementById("packageLabel").value,
+        price: document.getElementById("price").value,
+        discount: document.getElementById("discount").value,
+        final: document.getElementById("final").value,
+        advance: document.getElementById("advance").value,
+        coupon: document.getElementById("coupon").value
+      };
+
+      try {
+        const res = await fetch(GAS_URL, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const result = await res.json();
+        if (result.ok) {
+          document.getElementById("status").innerText = "✅ Quotation saved! PDF: " + result.pdfUrl;
+        } else {
+          document.getElementById("status").innerText = "❌ Error: " + result.error;
         }
-        // ensure we have a PDF datauri (user may not have clicked Download PDF button yet)
-        if(!window._lastPdfDataUri){
-          const { jsPDF } = window.jspdf; const d = new jsPDF({unit:'pt', format:'a4'});
-          d.text('Temporary PDF – generate again from UI for full details.', 40, 40);
-          window._lastPdfDataUri = d.output('datauristring');
-        }
-        const payload = {
-          timestamp: new Date().toISOString(),
-          clientName: fields.clientName.value,
-          company: fields.company.value,
-          phone: fields.phone.value,
-          email: fields.email.value,
-          packageId: selected.id,
-          packageLabel: selected.label,
-          duration: selected.duration,
-          revisions: selected.rev,
-          price: selected.price,
-          discount: getDiscount(fields.coupon.value, selected.price),
-          final: Math.max(0, selected.price - getDiscount(fields.coupon.value, selected.price)),
-          advance: +fields.advance.value||0,
-          pdfDataUri: window._lastPdfDataUri,
-        };
-        const res = await fetch(GAS_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-        const data = await res.json();
-        if(data && data.ok){
-          msg.textContent = 'Saved to Google Sheet successfully.';
-          if(data.pdfUrl){
-            const wrap = document.getElementById('pdfLinkWrap');
-            const a = document.getElementById('pdfLink');
-            a.href = data.pdfUrl; wrap.style.display = 'block';
-          }
-        }else{
-          msg.textContent = 'Tried to save, but the server did not return ok.';
-        }
-      }catch(err){
-        console.error(err);
-        msg.textContent = 'Error saving. Check console and your Apps Script web app.';
+      } catch (err) {
+        document.getElementById("status").innerText = "❌ Network error: " + err;
       }
     });
-
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-```
